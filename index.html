@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AI-102 Prep" />
+  <title>AI-102 iPhone Study App</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Stage 1 · Azure AI Engineer Associate</p>
+        <h1>AI-102 iPhone Study App</h1>
+        <p class="subcopy">Updated with topic coverage inspired by Kenneth Leung’s widely starred AI-102 notes and aligned to the current Microsoft AI-102 skill areas.</p>
+      </div>
+      <div class="hero-actions">
+        <button id="resetProgress" class="ghost-btn">Reset progress</button>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span>Study modules</span>
+        <strong id="moduleCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Completed</span>
+        <strong id="completedCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Completion</span>
+        <strong id="completionPct">0%</strong>
+      </article>
+      <article class="stat-card accent">
+        <span>Quick focus</span>
+        <strong id="nextFocus">Start Module 1</strong>
+      </article>
+    </section>
+
+    <section class="search-wrap">
+      <input id="searchBox" type="search" placeholder="Search module, keyword, service, or exam domain" />
+    </section>
+
+    <section class="tabbar" role="tablist" aria-label="Main navigation">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="modules">Modules</button>
+      <button class="tab" data-tab="flashcards">Flashcards</button>
+      <button class="tab" data-tab="quiz">Quiz</button>
+      <button class="tab" data-tab="setup">Setup</button>
+    </section>
+
+    <main>
+      <section class="tab-panel active" id="dashboard">
+        <div class="panel-card">
+          <h2>What changed in this version</h2>
+          <ul class="clean-list">
+            <li>Expanded module map to include the repo’s granular AI-102 note structure across Azure AI Services, Vision, Language, Search, Document Intelligence, and Azure OpenAI.</li>
+            <li>Added a current exam overlay for Microsoft’s updated AI-102 skill groups: plan/manage, generative AI, agentic solutions, vision, NLP, and knowledge mining/information extraction.</li>
+            <li>Made it iPhone-friendly as a PWA with offline caching and Home Screen install support.</li>
+          </ul>
+        </div>
+
+        <div class="panel-card">
+          <h2>Current exam skill areas</h2>
+          <div class="skill-pills" id="skillPills"></div>
+        </div>
+
+        <div class="panel-card">
+          <h2>Repo alignment review</h2>
+          <p class="muted">Your earlier app had broad topics, but it did not fully capture the repo’s detailed module breakdown. This build adds the missing module-level structure and study summaries.</p>
+          <div class="alignment-box">
+            <div>
+              <span class="label">Repo-based learning paths</span>
+              <strong>6</strong>
+            </div>
+            <div>
+              <span class="label">Granular modules added</span>
+              <strong>48</strong>
+            </div>
+            <div>
+              <span class="label">Current exam overlay</span>
+              <strong>2025 skill map</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <h2>Suggested order</h2>
+          <ol class="ordered-list">
+            <li>Plan and manage Azure AI resources and Foundry services.</li>
+            <li>Complete Kenneth-style foundational modules 1–5.</li>
+            <li>Use the generative AI and agentic overlay to patch newer exam areas.</li>
+            <li>Do flashcards and the quiz after every 4–5 modules.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="modules">
+        <div id="moduleGroups"></div>
+      </section>
+
+      <section class="tab-panel" id="flashcards">
+        <div class="panel-card flashcard-card">
+          <div class="flashcard-meta">
+            <span>Flashcard</span>
+            <strong id="flashcardIndex">1 / 1</strong>
+          </div>
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front" id="flashQuestion"></div>
+              <div class="flashcard-back" id="flashAnswer"></div>
+            </div>
+          </div>
+          <div class="flashcard-actions">
+            <button id="flipFlashcard">Flip</button>
+            <button id="prevFlashcard" class="ghost-btn">Prev</button>
+            <button id="nextFlashcard">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="quiz">
+        <div class="panel-card">
+          <h2>Quick readiness quiz</h2>
+          <p class="muted">10 short questions. Score is saved on-device.</p>
+          <div id="quizContainer"></div>
+          <button id="submitQuiz">Submit quiz</button>
+          <div id="quizResult" class="quiz-result"></div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="setup">
+        <div class="panel-card">
+          <h2>Use on iPhone</h2>
+          <ol class="ordered-list">
+            <li>Host this folder on Netlify, GitHub Pages, or Vercel.</li>
+            <li>Open the site in Safari on your iPhone.</li>
+            <li>Tap <strong>Share → Add to Home Screen</strong>.</li>
+            <li>The app opens full screen and works offline after the first load.</li>
+          </ol>
+        </div>
+
+        <div class="panel-card">
+          <h2>Local test from laptop</h2>
+          <pre><code>cd ai102-iphone-pwa-v3
+python3 -m http.server 8080 --bind 0.0.0.0</code></pre>
+          <p class="muted">Then open <code>http://YOUR_LAPTOP_IP:8080</code> in Safari on the same Wi‑Fi network.</p>
+        </div>
+
+        <div class="panel-card">
+          <h2>Reference links</h2>
+          <ul class="clean-list">
+            <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-102" target="_blank" rel="noreferrer">Official AI-102 study guide</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/" target="_blank" rel="noreferrer">Azure AI Engineer Associate certification page</a></li>
+            <li><a href="https://github.com/kennethleungty/Azure-AI-Engineer-Associate-Notes" target="_blank" rel="noreferrer">Kenneth Leung AI-102 notes repo</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
